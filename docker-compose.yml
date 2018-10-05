@@ -1,0 +1,51 @@
+version: "3"
+
+services: 
+  db:
+    image: postgres:9.6-alpine
+    environment: 
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=postgres
+    ports:
+      - 5434:5432
+    volumes: 
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:4-alpine
+    ports:
+      - 6378:6379
+  
+  elasticsearch:
+    image: elasticsearch:5.6.12-alpine
+    ports:
+      - 9201:9200
+  
+  app:
+    build: .
+    links:
+      - db:db
+      - elasticsearch:elasticsearch
+      - redis:redis
+    depends_on: 
+      - db
+      - elasticsearch
+      - redis
+    volumes: 
+      - ./code:/app/code
+    command: bash -c "./wait-for-it.sh db:5432 elasticsearch:9200 redis:6379 -- ./code/manage.py migrate && ./code/manage.py runserver 0.0.0.0:8000" 
+    ports:
+      - 8000:8000
+    environment: 
+      - DB_HOST=db
+      - DB_USER=postgres
+      - DB_PASS=
+      - DB_PORT=5432
+      - DB_NAME=postgres
+      - ELASTIC_HOST=elasticsearch:9200
+      - REDIS_HOST=redis
+
+volumes:
+  pgdata:
+    
