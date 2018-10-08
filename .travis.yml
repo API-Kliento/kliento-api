@@ -13,7 +13,7 @@ before_install:
 env:
   global: 
     - SECRET_KEY="=ws81a&$6hao)i8qy4$h(9ujkwirp%z!==+lx3g=s&garj&h9!"
-    - DB_HOST=db
+    - DB_HOST=localhost
     - DB_USER=postgres
     - DB_PASS=
     - DB_PORT="5432"
