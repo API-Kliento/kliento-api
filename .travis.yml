@@ -26,6 +26,6 @@ install:
   - pip install -r $TRAVIS_BUILD_DIR/requirements.txt
 
 before_script:
-  - psql -c 'create database postgres;' -U postgres
+  - psql -U postgres -tc "SELECT 1 FROM pg_database WHERE datname = 'postgres'" | grep -q 1 || psql -U postgres -c "CREATE DATABASE postgres"
 
 script: python manage.py test
