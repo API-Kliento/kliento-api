@@ -138,5 +138,5 @@ NOSE_ARGS = [
     '--cover-branches',
     '--cover-erase',
     '--cover-html-dir=./coverage',
-    '--cover-package=core, common, item, restaurant, order, rating, collection',
+    '--cover-package=api_reader',
 ]
