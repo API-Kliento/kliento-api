@@ -22,7 +22,7 @@ v1 = [
 ]
 
 urlpatterns = [
-    path('', ar.HealthChk.as_view()),
+    path('', ar.HealthChk.as_view(), name="health_check"),
     # api/v1
     path('api/', include([
         path('v1/', include(v1))
