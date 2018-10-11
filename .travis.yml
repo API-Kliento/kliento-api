@@ -30,4 +30,5 @@ before_script:
 
 script: 
   - coverage run --source=python manage.py test
-  - coveralls
+  
+after_success: coveralls
