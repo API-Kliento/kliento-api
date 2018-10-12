@@ -20,6 +20,7 @@ env:
     - DB_NAME=postgres
     - ELASTIC_HOST=elasticsearch:9200
     - REDIS_HOST=redis
+    - CODECOV_TOKEN="a490d042-d9e1-4c06-b212-8f3893f07331"
 
 install:
   - pwd
